@@ -1,0 +1,13 @@
+<app-topbar></app-topbar>
+<div class="container mt-4">
+  <!-- <p [hidden]="!isLoading">loading...</p> -->
+  <app-loading [hidden]="!isLoading"></app-loading>
+  <div class="row" [hidden]="isLoading">
+    <div class="col-md-3" *ngFor="let item of data">
+      <app-card [title]="item.Title" [author]="item.Author" [qty]="item.Qty"></app-card>
+    </div>
+  </div>
+  <app-pagination [hidden]="isLoading" (onPage)="onPaging($event)" [total]="total" [currentPage]="current"
+    [postPerPage]="postPerPage">
+  </app-pagination>
+</div>
