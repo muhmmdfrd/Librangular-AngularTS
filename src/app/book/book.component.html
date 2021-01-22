@@ -1,10 +1,10 @@
-<app-topbar></app-topbar>
 <div class="container mt-4">
   <app-loading [hidden]="!isLoading"></app-loading>
   <div class="row mb-3" [hidden]="isLoading">
     <div class="col-md-3">
       <div class="input-group mb-3">
-        <input class="form-control" type="text" placeholder="Search book" [formControl]="keywordForm" />
+        <input id="search" class="form-control" type="text" placeholder="Search book" [formControl]="keywordForm"
+          (keyup.enter)="onSearch()" />
         <div class="input-group-append">
           <input type="submit" class="btn btn-success btn-sm" (click)="onSearch()" value="Search" />
         </div>
@@ -14,7 +14,8 @@
   </div>
   <div class="row" [hidden]="isLoading">
     <div class="col-md-3" *ngFor="let item of data">
-      <app-card [title]="item.Title" [author]="item.Author" [qty]="item.Qty" [description]="item.Description">
+      <app-card [title]="item.Title" [author]="item.Author" [qty]="item.Qty" [description]="item.Description"
+        [id]="item.Id">
       </app-card>
     </div>
   </div>

@@ -10,6 +10,7 @@ import { CardComponent } from '../card/card.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DetailBookComponent } from '../detail-book/detail-book.component';
 
 @NgModule({
     imports: [
@@ -24,7 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
         TopbarComponent,
         CardComponent,
         PaginationComponent,
-        LoadingComponent
+        LoadingComponent,
+        DetailBookComponent
     ],
     exports: [
         LayoutComponent

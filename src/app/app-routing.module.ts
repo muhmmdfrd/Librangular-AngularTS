@@ -7,10 +7,15 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: LayoutComponent,
     loadChildren: () =>
       import('./layout/layout.module').then((m) => m.LayoutModule)
+  },
+  {
+    path: '',
+    redirectTo: 'home/book',
+    pathMatch: 'full'
   },
   {
     path: 'login',

@@ -1,3 +1,6 @@
-.input-group.mb-3 input.form-control:focus {
+input#search.form-control {
   outline: none !important;
+  border: none;
+  outline-width: 0px !important;
+  border-radius: 5px !important;
 }
