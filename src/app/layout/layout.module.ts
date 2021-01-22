@@ -9,12 +9,14 @@ import { TopbarComponent } from './topbar/topbar.component';
 import { CardComponent } from '../card/card.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { LoadingComponent } from './loading/loading.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule.forChild(LayoutRoutes),
         HttpClientModule,
+        ReactiveFormsModule
     ],
     declarations: [
         LayoutComponent,

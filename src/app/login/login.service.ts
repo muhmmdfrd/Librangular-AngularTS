@@ -8,11 +8,11 @@ export class LoginService {
 
   constructor(private service: NgService) { }
 
-  login(username: string, password: string) {
+  login(_username: string, _password: string) {
     return this.service.AngularService({
       method: "Login",
-      username: username,
-      password: password
+      username: _username,
+      password: _password
     });
   }
 

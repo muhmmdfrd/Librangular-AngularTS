@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { getToken } from "src/helpers/helper";
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,7 @@ export class NgService {
     constructor(private service: HttpClient) { }
 
     AngularService(data: { [k: string]: any }) {
-        data.token = "a0ea3df5-1724-4d97-9d91-3b1dfaeb9c00";
+        data.token = data.method === "Login" ? null : getToken();
         const requestData = { data };
 
         return this.service.post(this.baseurl, requestData).toPromise();

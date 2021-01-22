@@ -1,10 +1,13 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { getDataLogin } from 'src/helpers/helper';
 import { BookService } from './book.service';
 
 @Component({
   selector: 'app-book',
   templateUrl: './book.component.html',
-  styleUrls: ['./book.component.css']
+  styleUrls: ['./book.component.css'],
 })
 export class BookComponent implements OnInit {
 
@@ -13,18 +16,20 @@ export class BookComponent implements OnInit {
   postPerPage: number;
   isLoading: boolean = false;
   current: number = 1;
+  keywordForm: FormControl = new FormControl("");
+  keyword: string;
 
-  constructor(private service: BookService) { }
+  constructor(private service: BookService, private router: Router) { }
 
   getData() {
     this.isLoading = true;
 
-    this.service.getBook(this.current)
+    this.service.getBook(this.current, this.keyword)
       .then((response: any) => {
         let d = response.d.Values;
 
         this.data = d.Data;
-        this.total = d.RecordsTotal;
+        this.total = this.keyword === "" ? d.RecordsTotal : d.RecordsFiltered;
         this.postPerPage = d.PageSize;
       })
       .catch((err) => {
@@ -39,7 +44,13 @@ export class BookComponent implements OnInit {
     this.getData();
   }
 
-  ngOnInit() {
+  onSearch() {
+    this.keyword = this.keywordForm.value;
+    this.current = 1;
     this.getData();
+  }
+
+  ngOnInit() {
+    getDataLogin() == null ? this.router.navigateByUrl('/login') : this.getData();
   }
 }

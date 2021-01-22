@@ -1,13 +1,25 @@
 <app-topbar></app-topbar>
 <div class="container mt-4">
-  <!-- <p [hidden]="!isLoading">loading...</p> -->
   <app-loading [hidden]="!isLoading"></app-loading>
-  <div class="row" [hidden]="isLoading">
-    <div class="col-md-3" *ngFor="let item of data">
-      <app-card [title]="item.Title" [author]="item.Author" [qty]="item.Qty"></app-card>
+  <div class="row mb-3" [hidden]="isLoading">
+    <div class="col-md-3">
+      <div class="input-group mb-3">
+        <input class="form-control" type="text" placeholder="Search book" [formControl]="keywordForm" />
+        <div class="input-group-append">
+          <input type="submit" class="btn btn-success btn-sm" (click)="onSearch()" value="Search" />
+        </div>
+      </div>
+
     </div>
   </div>
-  <app-pagination [hidden]="isLoading" (onPage)="onPaging($event)" [total]="total" [currentPage]="current"
-    [postPerPage]="postPerPage">
+  <div class="row" [hidden]="isLoading">
+    <div class="col-md-3" *ngFor="let item of data">
+      <app-card [title]="item.Title" [author]="item.Author" [qty]="item.Qty" [description]="item.Description">
+      </app-card>
+    </div>
+  </div>
+  <span [hidden]="total !== 0">Data not found</span><br />
+  <app-pagination [hidden]="isLoading || total === 0" (onPage)="onPaging($event)" [total]="total"
+    [currentPage]="current" [postPerPage]="postPerPage">
   </app-pagination>
 </div>

@@ -8,11 +8,12 @@ export class BookService {
 
   constructor(private service: NgService) { }
 
-  getBook(current: number) {
+  getBook(current: number, keyword: string = "") {
     return this.service.AngularService({
       method: "BookGetAll",
       pageIndex: current,
-      pageSize: 8
+      pageSize: 8,
+      keyword: keyword
     });
   }
 
