@@ -13,15 +13,21 @@ export class DetailBookComponent implements OnInit {
 
   constructor(private service: DetailBookService) { }
 
-  ngOnInit() {
-    this.service.getBookId(getParamsId()).then(({ d }: any) => {
-      const { Values } = d;
-      const data = Values.Data.shift();
+  getData() {
+    this.service.getBook(
+      getParamsId(),
+      (response) => {
+        this.model = response.Data.shift();
+        this.model.Path = `${getPathServer(true)}/maestra.jpg`
+      }, (err) => {
+        console.log(err);
+      }, () => {
+        this.isLoading = false;
+      });
+  }
 
-      this.model = data;
-      this.model.Path = `${getPathServer()}/Images/${"maestra.jpg"}`;
-    }).catch((err) => console.error(err))
-      .finally(() => this.isLoading = false)
+  ngOnInit() {
+    this.getData();
   }
 
 }

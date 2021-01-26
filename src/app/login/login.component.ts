@@ -33,25 +33,19 @@ export class LoginComponent implements OnInit {
     this.textLogin = "loading...";
     this.btnStatus = "disabled";
 
-    this.service.login(username.value, password.value)
-      .then((response: any) => {
-        const data = response.d;
-        if (data.Success) {
-          const d = data.Values;
-          var ssid = JSON.stringify(d);
-          window.localStorage.setItem('_ilu', ssid);
-          this.router.navigateByUrl('/');
-        } else {
-          alert(data.Message);
-        }
-      })
-      .catch((err) => alert(err))
-      .finally(() => {
+    this.service.login(username.value, password.value,
+      (response) => {
+        const ssid = JSON.stringify(response);
+        window.localStorage.setItem('_ilu', ssid);
+        this.router.navigateByUrl('/home/book');
+      },
+      (err) => {
+        alert(err)
+      },
+      () => {
         this.isLoading = false;
         this.textLogin = "Sign In";
         this.btnStatus = null;
-      });
+      })
   }
-
-
 }

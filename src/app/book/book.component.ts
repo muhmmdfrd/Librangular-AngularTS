@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { getDataLogin } from 'src/helpers/helper';
 import { BookService } from './book.service';
@@ -24,19 +24,17 @@ export class BookComponent implements OnInit {
   getData() {
     this.isLoading = true;
 
-    this.service.getBook(this.current, this.keyword)
-      .then((response: any) => {
-        let d = response.d.Values;
+    this.service.getBook(this.current, this.keyword, (response) => {
+      const { Data, RecordsTotal, RecordsFiltered, PageSize } = response;
 
-        this.data = d.Data;
-        this.total = this.keyword === "" ? d.RecordsTotal : d.RecordsFiltered;
-        this.postPerPage = d.PageSize;
-      })
-      .catch((err) => {
-        console.error(err)
-      }).finally(() => {
-        this.isLoading = false;
-      });
+      this.data = Data;
+      this.total = this.keyword === "" ? RecordsTotal : RecordsFiltered;
+      this.postPerPage = PageSize;
+    }, (err) => {
+      console.log(err)
+    }, () => {
+      this.isLoading = false;
+    })
   }
 
   onPaging(page: number) {

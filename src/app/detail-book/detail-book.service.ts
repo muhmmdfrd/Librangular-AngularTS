@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Injectable, OnInit } from '@angular/core';
+import { onComplete, onError, onSuccess } from 'src/interfaces/service.type';
 import { NgService } from 'src/services/ng.service';
 
 @Injectable({
@@ -7,13 +7,18 @@ import { NgService } from 'src/services/ng.service';
 })
 export class DetailBookService {
 
-  constructor(private service: NgService, private activeRouter: ActivatedRoute) { }
+  constructor(private service: NgService) { }
 
-  getBookId(id: number) {
-    return this.service.AngularService({
+  getBook(id: number, success: onSuccess, error: onError, complete: onComplete): void {
+    const requestData = {
       method: "BookGetAll",
       id: id
-    });
+    };
+
+    return this.service.Send(requestData,
+      (response) => success(response),
+      (err) => error(err),
+      () => complete());
   }
 
 }
